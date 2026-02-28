@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prosper Oliver - Web Designer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #0a0a0a;
+            color: #ffffff;
+        }
+
+        /* NAVBAR */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background-color: #111111;
+            border-bottom: 2px solid #1a1a2e;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #00d4ff;
+        }
+
+        .nav-links a {
+            color: #cccccc;
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #00d4ff;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            text-align: center;
+            padding: 120px 20px;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+        }
+
+        .hero h1 {
+            font-size: 52px;
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+
+        .hero h1 span {
+            color: #00d4ff;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: #aaaaaa;
+            max-width: 600px;
+            margin: 0 auto 40px auto;
+            line-height: 1.6;
+        }
+
+        .hero-button {
+            display: inline-block;
+            padding: 16px 40px;
+            background-color: #00d4ff;
+            color: #0a0a0a;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 8px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .hero-button:hover {
+            background-color: #00b8d9;
+            transform: scale(1.05);
+        }
+
+        /* SERVICES SECTION */
+        .services {
+            padding: 80px 40px;
+            text-align: center;
+            background-color: #111111;
+        }
+
+        .services h2 {
+            font-size: 36px;
+            margin-bottom: 50px;
+            color: #00d4ff;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background-color: #1a1a2e;
+            padding: 40px 30px;
+            border-radius: 12px;
+            border: 1px solid #2a2a4a;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            border-color: #00d4ff;
+        }
+
+        .service-card .icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .service-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+
+        .service-card p {
+            font-size: 16px;
+            color: #aaaaaa;
+            line-height: 1.6;
+        }
+
+        /* ABOUT SECTION */
+        .about {
+            padding: 80px 40px;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .about h2 {
+            font-size: 36px;
+            margin-bottom: 30px;
+            color: #00d4ff;
+        }
+
+        .about p {
+            font-size: 18px;
+            color: #aaaaaa;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        /* CONTACT SECTION */
+        .contact {
+            padding: 80px 40px;
+            text-align: center;
+            background-color: #111111;
+        }
+
+        .contact h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #00d4ff;
+        }
+
+        .contact p {
+            font-size: 18px;
+            color: #aaaaaa;
+            margin-bottom: 40px;
+        }
+
+        .contact-button {
+            display: inline-block;
+            padding: 16px 40px;
+            background: transparent;
+            color: #00d4ff;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            border: 2px solid #00d4ff;
+            border-radius: 8px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .contact-button:hover {
+            background-color: #00d4ff;
+            color: #0a0a0a;
+        }
+
+        /* FOOTER */
+        footer {
+            padding: 30px;
+            text-align: center;
+            background-color: #0a0a0a;
+            border-top: 1px solid #1a1a2e;
+            color: #555555;
+            font-size: 14px;
+        }
+
+        /* MOBILE RESPONSIVE */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            nav {
+                padding: 15px 20px;
+            }
+
+            .nav-links a {
+                margin-left: 15px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav>
+        <div class="logo">Prosper Oliver</div>
+        <div class="nav-links">
+            <a href="#services">Services</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <div class="hero">
+        <h1>I Build Websites That <span>Grow Your Business</span></h1>
+        <p>Clean, modern, and affordable websites for small businesses. Your online presence starts here.</p>
+        <a href="#contact" class="hero-button">Let's Work Together</a>
+    </div>
+
+    <!-- SERVICES SECTION -->
+    <div class="services" id="services">
+        <h2>What I Offer</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="icon">🌐</div>
+                <h3>Business Websites</h3>
+                <p>Professional websites that make your business look credible and help customers find you online.</p>
+            </div>
+            <div class="service-card">
+                <div class="icon">📱</div>
+                <h3>Mobile Friendly</h3>
+                <p>Every website I build looks perfect on phones, tablets, and computers. Your customers browse everywhere.</p>
+            </div>
+            <div class="service-card">
+                <div class="icon">⚡</div>
+                <h3>Fast & Clean</h3>
+                <p>No slow loading times. No clutter. Just fast, clean websites that get straight to the point.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ABOUT SECTION -->
+    <div class="about" id="about">
+        <h2>About Me</h2>
+        <p>I'm Prosper Oliver, a web designer who helps small businesses get online without breaking the bank. I believe every business deserves a professional website.</p>
+        <p>Whether you're a restaurant, a barber shop, a boutique, or any local business — I'll build you a website that your customers will love.</p>
+    </div>
+
+    <!-- CONTACT SECTION -->
+    <div class="contact" id="contact">
+        <h2>Ready to Get Started?</h2>
+        <p>Send me a message and let's talk about your project.</p>
+        <a href="mailto:your-email@example.com" class="contact-button">Send Me an Email</a>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2025 Prosper Oliver. All rights reserved.</p>
+    </footer>
+
+</body>
+  </html>
