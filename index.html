@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ProsperMedia — Web Developer</title>
+  <meta name="description" content="ProsperMedia designs clean modern websites for ambitious brands. Premium digital experiences with a luxury creative studio feel and high-end tech output." />
+  <meta property="og:title" content="ProsperMedia — Web Developer" />
+  <meta property="og:description" content="Clean modern websites for ambitious brands." />
+  <meta property="og:image" content="https://i.postimg.cc/Gmb5PKzN/64829.jpg" />
+  <link rel="icon" href="https://i.postimg.cc/Gmb5PKzN/64829.jpg" type="image/jpeg" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    :root {
+      --bg: #07101d;
+      --bg-2: #0b1625;
+      --text: #f8fbff;
+      --muted: #9fb0c7;
+      --line: rgba(255,255,255,0.10);
+      --glass: rgba(255,255,255,0.08);
+      --glass-2: rgba(255,255,255,0.12);
+      --blue: #7bc2ff;
+      --blue-2: #3d87ff;
+      --max: 1240px;
+      --shadow: 0 20px 80px rgba(0,0,0,0.38);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Manrope', sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(61,135,255,0.10), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(123,194,255,0.08), transparent 34%),
+        linear-gradient(180deg, var(--bg), var(--bg-2));
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      border: none;
+      outline: none;
+      background: none;
+      color: inherit;
+      cursor: pointer;
+      font: inherit;
+    }
+
+    .page-wrap {
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ADVANCED LOADER */
+    .loader {
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(circle at center, rgba(123,194,255,0.08), transparent 26%),
+        linear-gradient(180deg, #060d18, #0a1423);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      z-index: 99999;
+      transition: opacity .9s ease, visibility .9s ease;
+    }
+
+    .loader.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .loader-ring {
+      position: relative;
+      width: 110px;
+      height: 110px;
+      margin-bottom: 24px;
+    }
+
+    .loader-ring::before,
+    .loader-ring::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .loader-ring::after {
+      border-top: 1px solid rgba(123,194,255,0.8);
+      border-right: 1px solid rgba(123,194,255,0.25);
+      animation: spinRing 1.4s linear infinite;
+    }
+
+    @keyframes spinRing {
+      to { transform: rotate(360deg); }
+    }
+
+    .loader-logo {
+      position: absolute;
+      inset: 18px;
+      width: calc(100% - 36px);
+      height: calc(100% - 36px);
+      border-radius: 22px;
+      object-fit: cover;
+      box-shadow: 0 0 30px rgba(123,194,255,0.15);
+    }
+
+    .loader-brand {
+      font-family: 'Outfit', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: #f9fbff;
+    }
+
+    .loader-role {
+      margin-top: 6px;
+      font-size: 12px;
+      letter-spacing: 2.8px;
+      text-transform: uppercase;
+      color: #88a7cb;
+    }
+
+    .loader-line {
+      width: 180px;
+      height: 2px;
+      background: rgba(255,255,255,0.08);
+      margin-top: 22px;
+      border-radius: 999px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .loader-line::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -25%;
+      width: 25%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, var(--blue), transparent);
+      animation: lineRun 1.4s ease-in-out infinite;
+    }
+
+    @keyframes lineRun {
+      0% { left: -25%; opacity: 0; }
+      20% { opacity: 1; }
+      100% { left: 110%; opacity: 1; }
+    }
+
+    /* BACKGROUND SYSTEM */
+    .bg-system {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .bg-image {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(4,10,18,0.72), rgba(4,10,18,0.88)),
+        url('https://i.postimg.cc/WbxyDZHb/A-premium-futuristic-202603201217.jpg') center/cover no-repeat;
+      opacity: 0.9;
+    }
+
+    .bg-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+      background-size: 54px 54px;
+      opacity: 0.07;
+    }
+
+    .wave {
+      position: absolute;
+      width: 160%;
+      height: 260px;
+      left: -30%;
+      top: 18%;
+      background:
+        radial-gradient(circle, rgba(123,194,255,0.16), transparent 55%),
+        linear-gradient(90deg, transparent, rgba(123,194,255,0.16), transparent);
+      filter: blur(16px);
+      transform: rotate(-7deg);
+      opacity: 0.55;
+      animation: waveSweep 12s ease-in-out infinite;
+    }
+
+    .wave.two {
+      top: 64%;
+      height: 220px;
+      animation-duration: 15s;
+      animation-delay: 2s;
+      opacity: 0.38;
+    }
+
+    @keyframes waveSweep {
+      0% { transform: translateX(-18%) rotate(-7deg); opacity: 0.08; }
+      25% { opacity: 0.45; }
+      50% { transform: translateX(10%) rotate(-5deg); opacity: 0.38; }
+      75% { opacity: 0.5; }
+      100% { transform: translateX(34%) rotate(-7deg); opacity: 0.08; }
+    }
+
+    .shape {
+      position: absolute;
+      border: 1px solid rgba(123,194,255,0.16);
+      background: rgba(255,255,255,0.02);
+      backdrop-filter: blur(4px);
+      animation: floatShape 10s ease-in-out infinite;
+    }
+
+    .shape.one {
+      width: 80px;
+      height: 80px;
+      border-radius: 22px;
+      top: 14%;
+      right: 10%;
+    }
+
+    .shape.two {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      top: 62%;
+      left: 8%;
+      animation-duration: 13s;
+    }
+
+    .shape.three {
+      width: 70px;
+      height: 70px;
+      transform: rotate(45deg);
+      top: 32%;
+      left: 14%;
+      animation-duration: 11s;
+    }
+
+    @keyframes floatShape {
+      0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.55; }
+      50% { transform: translateY(-18px) rotate(8deg); opacity: 0.9; }
+    }
+
+    .container {
+      width: min(var(--max), calc(100% - 34px));
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(7,16,29,0.50);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .nav-inner {
+      width: min(var(--max), calc(100% - 34px));
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 0;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brand-logo {
+      width: 46px;
+      height: 46px;
+      border-radius: 15px;
+      object-fit: cover;
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow: 0 10px 30px rgba(123,194,255,0.10);
+      flex-shrink: 0;
+    }
+
+    .brand-meta {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-name {
+      font-family: 'Outfit', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+      color: #f8fbff;
+    }
+
+    .brand-role {
+      font-size: 11px;
+      color: #8da9ca;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-top: 2px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      color: var(--muted);
+      transition: color .3s ease;
+    }
+
+    .nav-links a:hover {
+      color: #ffffff;
+    }
+
+    .nav-cta {
+      padding: 12px 18px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, rgba(123,194,255,0.24), rgba(61,135,255,0.18));
+      border: 1px solid rgba(123,194,255,0.22);
+      color: #f8fbff;
+      font-size: 14px;
+      font-weight: 700;
+      transition: transform .25s ease, box-shadow .25s ease;
+      box-shadow: 0 10px 30px rgba(61,135,255,0.12);
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 40px rgba(61,135,255,0.18);
+    }
+
+    .menu-btn {
+      display: none;
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: #eef5ff;
+      font-size: 18px;
+    }
+
+    .hero {
+      padding: 94px 0 60px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 38px;
+      align-items: center;
+      min-height: 82vh;
+    }
+
+    .hero-copy {
+      max-width: 720px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: #d1ddef;
+      font-size: 12px;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      margin-bottom: 22px;
+      backdrop-filter: blur(8px);
+    }
+
+    .hero-brand {
+      font-family: 'Outfit', sans-serif;
+      font-size: 19px;
+      font-weight: 700;
+      letter-spacing: 2.8px;
+      text-transform: uppercase;
+      color: #a7c8ec;
+      margin-bottom: 10px;
+    }
+
+    .hero-role {
+      font-size: 12px;
+      color: #7f99ba;
+      text-transform: uppercase;
+      letter-spacing: 2.4px;
+      margin-bottom: 18px;
+    }
+
+    .hero-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(42px, 7vw, 82px);
+      line-height: 1.02;
+      font-weight: 700;
+      letter-spacing: -1.6px;
+      color: #f9fbff;
+      margin-bottom: 16px;
+    }
+
+    .hero-title span {
+      color: #9fd7ff;
+      text-shadow: 0 0 28px rgba(123,194,255,0.12);
+    }
+
+    .hero-sub {
+      max-width: 640px;
+      font-size: 17px;
+      line-height: 1.85;
+      color: var(--muted);
+      margin-bottom: 30px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+      position: relative;
+      overflow: hidden;
+      border-radius: 999px;
+      padding: 15px 22px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      transition: transform .28s ease, box-shadow .28s ease, background .28s ease;
+    }
+
+    .btn-primary::before,
+    .btn-secondary::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, transparent, rgba(255,255,255,0.10), transparent);
+      transform: translateX(-120%);
+      transition: transform .7s ease;
+    }
+
+    .btn-primary:hover::before,
+    .btn-secondary:hover::before {
+      transform: translateX(120%);
+    }
+
+    .btn-primary {
+      background: linear-gradient(180deg, rgba(123,194,255,0.24), rgba(61,135,255,0.18));
+      border: 1px solid rgba(123,194,255,0.24);
+      box-shadow: 0 10px 34px rgba(61,135,255,0.14);
+      color: #f8fbff;
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: #e3edfb;
+      backdrop-filter: blur(8px);
+    }
+
+    .btn-primary:hover,
+    .btn-secondary:hover {
+      transform: translateY(-2px) scale(1.01);
+    }
+
+    .hero-visual {
+      position: relative;
+      min-height: 560px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .glass-preview {
+      position: relative;
+      width: 100%;
+      max-width: 580px;
+      border-radius: 30px;
+      padding: 24px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.11), rgba(255,255,255,0.05));
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 20px 80px rgba(0,0,0,0.38);
+      backdrop-filter: blur(16px);
+      overflow: hidden;
+    }
+
+    .glass-preview::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, transparent 10%, rgba(255,255,255,0.10) 30%, transparent 55%);
+      transform: translateX(-100%);
+      animation: sweep 8s ease-in-out infinite;
+    }
+
+    @keyframes sweep {
+      0% { transform: translateX(-100%); opacity: 0; }
+      20% { opacity: 1; }
+      60% { transform: translateX(120%); opacity: 1; }
+      100% { transform: translateX(120%); opacity: 0; }
+    }
+
+    .preview-top {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+
+    .preview-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #c6d7ee;
+    }
+
+    .preview-bars {
+      display: flex;
+      gap: 8px;
+    }
+
+    .preview-bars span {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.18);
+    }
+
+    .preview-image {
+      width: 100%;
+      height: 430px;
+      object-fit: cover;
+      border-radius: 22px;
+      display: block;
+      border: 1px solid rgba(255,255,255,0.08);
+      position: relative;
+      z-index: 2;
+    }
+
+    .floating-tag {
+      position: absolute;
+      bottom: -24px;
+      left: -16px;
+      max-width: 340px;
+      padding: 18px 20px;
+      border-radius: 22px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.11), rgba(255,255,255,0.06));
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 18px 60px rgba(0,0,0,0.35);
+      backdrop-filter: blur(14px);
+    }
+
+    .floating-tag-title {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #b5cae7;
+      margin-bottom: 8px;
+    }
+
+    .floating-tag-text {
+      font-size: 14px;
+      line-height: 1.65;
+      color: #e6f0ff;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity .8s ease, transform .8s ease;
+    }
+
+    .reveal.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <div class="loader" id="loader">
+    <div class="loader-ring">
+      <img class="loader-logo" src="https://i.postimg.cc/Gmb5PKzN/64829.jpg" alt="ProsperMedia logo" />
+    </div>
+    <div class="loader-brand">PROSPERMEDIA</div>
+    <div class="loader-role">Web Developer</div>
+    <div class="loader-line"></div>
+  </div>
+
+  <div class="bg-system">
+    <div class="bg-image"></div>
+    <div class="bg-grid"></div>
+    <div class="wave"></div>
+    <div class="wave two"></div>
+    <div class="shape one"></div>
+    <div class="shape two"></div>
+    <div class="shape three"></div>
+  </div>
+
+  <div class="page-wrap">
+    <header class="nav">
+      <div class="nav-inner">
+        <a href="#top" class="brand">
+          <img class="brand-logo" src="https://i.postimg.cc/Gmb5PKzN/64829.jpg" alt="ProsperMedia logo" />
+          <div class="brand-meta">
+            <div class="brand-name">PROSPERMEDIA</div>
+            <div class="brand-role">Web Developer</div>
+          </div>
+        </a>
+
+        <nav class="nav-links">
+          <a href="#work">Work</a>
+          <a href="#services">Services</a>
+          <a href="#process">Process</a>
+          <a href="#contact">Contact</a>
+        </nav>
+
+        <a class="nav-cta" href="#contact">Start Your Project</a>
+
+        <button class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button>
+      </div>
+
+      <div class="nav-inner" style="padding-top:0;">
+        <div class="mobile-menu" id="mobileMenu">
+          <a href="#work">Work</a>
+          <a href="#services">Services</a>
+          <a href="#process">Process</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="container hero-grid">
+          <div class="hero-copy reveal">
+            <div class="eyebrow">Premium digital design • Modern web experiences</div>
+            <div class="hero-brand">ProsperMedia</div>
+            <div class="hero-role">Web Developer</div>
+            <h1 class="hero-title">
+              I DESIGN <span>CLEAN MODERN</span> WEBSITES FOR AMBITIOUS BRANDS
+            </h1>
+            <p class="hero-sub">
+              Premium websites and digital frontends designed to feel modern, refined, and impossible to ignore.
+            </p>
+            <div class="hero-actions">
+              <a class="btn-primary" href="#work">View Work</a>
+              <a class="btn-secondary" href="#contact">Let’s Talk</a>
+            </div>
+          </div>
+
+          <div class="hero-visual reveal">
+            <div class="glass-preview">
+              <div class="preview-top">
+                <div class="preview-label">Featured project</div>
+                <div class="preview-bars">
+                  <span></span><span></span><span></span>
+                </div>
+              </div>
+              <img
+                class="preview-image"
+                src="https://i.postimg.cc/P5G6fjC6/IMG-20260320-122606.jpg"
+                alt="InvestorPro project preview"
+              />
+            </div>
+
+            <div class="floating-tag">
+              <div class="floating-tag-title">Built for premium digital presence</div>
+              <div class="floating-tag-text">
+                Clean structure, refined UI, calm motion, and stronger responsiveness across mobile and desktop.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section statement">
+        <div class="container">
+          <div class="statement-panel reveal">
+            <p class="statement-text">
+              I build <strong>premium websites and frontend experiences</strong> for brands that care about
+              presentation, clarity, and digital presence. Every layout is designed to feel
+              <em>clean, structured, calm, and expensive</em> — on both mobile and desktop.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="work">
+        <div class="container">
+          <div class="section-head reveal">
+            <div>
+              <div class="section-kicker">Selected work</div>
+              <h2 class="section-title">A few projects that reflect how I think and build.</h2>
+            </div>
+            <p class="section-desc">
+              Each project is designed with clarity, responsiveness, and a premium digital feel — not just to look good, but to feel intentional.
+            </p>
+          </div>
+
+          <div class="projects-grid">
+            <article class="project reveal">
+              <div class="project-image-wrap">
+                <img class="project-image" src="https://i.postimg.cc/y62qR2JW/IMG-20260320-122633.jpg" alt="CHIME Barbers project screenshot" />
+              </div>
+              <div class="project-body">
+                <div class="project-type">Barber / Grooming Brand</div>
+                <h3 class="project-name">CHIME Barbers</h3>
+                <p class="project-text">
+                  A clean brand-focused website for a barbering business — built to feel sharp, modern, and locally credible.
+                </p>
+                <a class="project-link" href="https://prosperoliverc124-byte.github.io/chime-barbers" target="_blank">
+                  View live project →
+                </a>
+              </div>
+            </article>
+
+            <article class="project reveal">
+              <div class="project-image-wrap">
+                <img class="project-image" src="https://i.postimg.cc/85s3JbNs/IMG-20260320-122659.jpg" alt="Mama's Kitchen project screenshot" />
+              </div>
+              <div class="project-body">
+                <div class="project-type">Restaurant / Hospitality</div>
+                <h3 class="project-name">Mama’s Kitchen</h3>
+                <p class="project-text">
+                  A high-impact restaurant experience with stronger storytelling, richer visual structure, and polished food presentation.
+                </p>
+                <a class="project-link" href="https://prosperoliverc124-byte.github.io/mamas-kitchen" target="_blank">
+                  View live project →
+                </a>
+              </div>
+            </article>
+
+            <article class="project reveal">
+              <div class="project-image-wrap">
+                <img class="project-image" src="https://i.postimg.cc/P5G6fjC6/IMG-20260320-122606.jpg" alt="InvestorPro project screenshot" />
+              </div>
+              <div class="project-body">
+                <div class="project-type">Fintech / Product Frontend</div>
+                <h3 class="project-name">InvestorPro</h3>
+                <p class="project-text">
+                  A multi-page investment platform prototype exploring dashboard systems, auth flows, and product-style UI structure.
+                </p>
+                <a class="project-link" href="https://prosperoliverc124-byte.github.io/Investorpro" target="_blank">
+                  View live project →
+                </a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="services">
+        <div class="container">
+          <div class="section-head reveal">
+            <div>
+              <div class="section-kicker">Services</div>
+              <h2 class="section-title">Focused services for brands that want more than ordinary websites.</h2>
+            </div>
+            <p class="section-desc">
+              I don’t design noisy websites. I create digital experiences that feel clean, high-end, and strategically presented.
+            </p>
+          </div>
+
+          <div class="services-grid">
+            <div class="service reveal">
+              <div class="service-no">01</div>
+              <div>
+                <h3>Premium Business Websites</h3>
+                <p>
+                  Clean, modern websites that make your brand look more credible, more polished, and more serious online.
+                </p>
+              </div>
+            </div>
+
+            <div class="service reveal">
+              <div class="service-no">02</div>
+              <div>
+                <h3>High-Converting Landing Pages</h3>
+                <p>
+                  Focused pages built to guide attention, communicate value clearly, and move visitors toward action.
+                </p>
+              </div>
+            </div>
+
+            <div class="service reveal">
+              <div class="service-no">03</div>
+              <div>
+                <h3>Product & Dashboard Frontends</h3>
+                <p>
+                  Premium frontend interfaces for digital products, platforms, and dashboards that need structure and polish.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section" id="process">
+        <div class="container">
+          <div class="section-head reveal">
+            <div>
+              <div class="section-kicker">Process</div>
+              <h2 class="section-title">Simple, clear, and built to keep the project moving.</h2>
+            </div>
+            <p class="section-desc">
+              I keep the process focused so you always know what’s happening and what comes next.
+            </p>
+          </div>
+
+          <div class="process-track">
+            <div class="process-step reveal">
+              <div class="process-index">01</div>
+              <h3>Discovery</h3>
+              <p>
+                You tell me what your brand does, what you want the website to feel like, and what outcome you want it to create.
+              </p>
+            </div>
+
+            <div class="process-step reveal">
+              <div class="process-index">02</div>
+              <h3>Design & Build</h3>
+              <p>
+                I shape the layout, visual direction, and interface into something clean, premium, and structured across devices.
+              </p>
+            </div>
+
+            <div class="process-step reveal">
+              <div class="process-index">03</div>
+              <h3>Launch</h3>
+              <p>
+                Once everything is polished and approved, your website goes live and becomes a strong digital asset for your brand.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-head reveal">
+            <div>
+              <div class="section-kicker">Why work with me</div>
+              <h2 class="section-title">Design that feels intentional, not just assembled.</h2>
+            </div>
+            <p class="section-desc">
+              My focus is not just making pages look “nice.” I care about how they are structured, how they feel, and how they communicate quality.
+            </p>
+          </div>
+
+          <div class="why-wrap">
+            <div class="why-main reveal">
+              <h3>
+                I design for brands that want to look more refined, more modern, and more memorable online.
+              </h3>
+              <p>
+                That means cleaner spacing, stronger hierarchy, better responsiveness, and a presentation style that feels premium on both mobile and desktop. Every decision is made to support a stronger overall impression.
+              </p>
+            </div>
+
+            <div class="why-points reveal">
+              <div class="why-list">
+                <div class="why-item">
+                  <h4>Premium visual direction</h4>
+                  <p>Layouts built to feel expensive, intentional, and well-balanced.</p>
+                </div>
+                <div class="why-item">
+                  <h4>Responsive with real structure</h4>
+                  <p>Not just mobile-first — properly considered across mobile and desktop.</p>
+                </div>
+                <div class="why-item">
+                  <h4>Cleaner UI thinking</h4>
+                  <p>No unnecessary clutter. No random elements. Just focused digital presentation.</p>
+                </div>
+                <div class="why-item">
+                  <h4>Detail-focused execution</h4>
+                  <p>Spacing, motion, typography, and composition are handled with care.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section cta-section" id="contact">
+        <div class="container">
+          <div class="cta-panel reveal">
+            <div class="cta-kicker">Contact</div>
+            <h2 class="cta-title">Let’s make the perfect website for you now.</h2>
+            <p class="cta-text">
+              If your brand needs a cleaner, stronger, more premium digital presence, let’s talk. I design websites and frontends that are built to feel modern, refined, and memorable.
+            </p>
+            <div class="cta-actions">
+              <a class="btn-primary" href="https://wa.me/2349124993048?text=Hi%20ProsperMedia%2C%20I%E2%80%99d%20like%20to%20work%20with%20you%20on%20a%20website." target="_blank">
+                WhatsApp Me
+              </a>
+              <a class="btn-secondary" href="mailto:prosperoliverc124@gmail.com">
+                Send Email
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <div class="container">
+          <div class="footer-inner">
+            <div class="footer-brand">
+              <img src="https://i.postimg.cc/Gmb5PKzN/64829.jpg" alt="ProsperMedia logo" />
+              <div class="footer-brand-text">PROSPERMEDIA</div>
+            </div>
+
+            <div class="footer-note">
+              Premium websites and digital frontends for ambitious brands.
+            </div>
+          </div>
+        </div>
+      </footer>
+    </main>
+  </div>
+  <script>
+    // loader
+    window.addEventListener('load', function () {
+      setTimeout(function () {
+        const loader = document.getElementById('loader');
+        if (loader) loader.classList.add('hidden');
+      }, 1400);
+    });
+
+    // mobile menu
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    if (menuBtn && mobileMenu) {
+      menuBtn.addEventListener('click', function () {
+        mobileMenu.classList.toggle('show');
+      });
+
+      mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => mobileMenu.classList.remove('show'));
+      });
+    }
+
+    // reveal on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
